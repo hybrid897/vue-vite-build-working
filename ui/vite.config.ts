@@ -5,8 +5,7 @@ import vue from '@vitejs/plugin-vue'
 import VueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  appType: 'mpa',
+export default defineConfig(({ mode }) => ({
   plugins: [vue(), VueDevTools()],
   resolve: {
     alias: {
@@ -17,7 +16,8 @@ export default defineConfig({
   build: {
     manifest: 'assets.manifest.json',
     emptyOutDir: true,
-    outDir: '../../test-site/WebApplication1/wwwroot/',
+    minify: mode === 'production',
+    outDir: '../../vue-vite-build-working/WebApplication1/wwwroot/',
     rollupOptions: {
       input: '../ui/src/main.ts',
       output: {
@@ -26,6 +26,10 @@ export default defineConfig({
         assetFileNames: `assets/[name].[ext]`
       }
     }
+  },
+  define: {
+    // Enable / disable devtools support in production builds.
+    __VUE_PROD_DEVTOOLS__: mode !== 'production'
   }
   // appType: 'mpa',
   // root: 'assets',
@@ -44,4 +48,4 @@ export default defineConfig({
   //     }
   //   }
   // }
-})
+}))

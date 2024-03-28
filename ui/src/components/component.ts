@@ -1,14 +1,15 @@
 import App from '../app'
 
 import registerMyButton from './myButton'
+import registerHelloWorld from './helloWorld'
 import registerMyTask from './Task/Task'
 
 /**
  * Initialise Components
  * @param app - App framework
  */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function initialiseComponents(app: typeof App) {
-  registerMyButton(app)
+  registerMyButton()
+  registerHelloWorld()
   registerMyTask(app)
 }

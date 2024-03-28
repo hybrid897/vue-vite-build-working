@@ -1,0 +1,15 @@
+@tailwind base;
+
+@tailwind components;
+
+@layer components {
+  .btn {
+    @apply px-3 py-0.5 min-h-[32px] text-white text-base bg-green hover:bg-green-hover dark:bg-green-dark;
+  }
+
+  .btn-secondary {
+    @apply btn bg-brown hover:bg-brown-hover dark:border-brown-dark;
+  }
+}
+
+@tailwind utilities;

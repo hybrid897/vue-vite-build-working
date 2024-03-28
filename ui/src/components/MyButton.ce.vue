@@ -1,6 +1,7 @@
 <template>
-    <button type="submit">
+    <button class="bg-green text-white" type="submit">
         {{ msg }}
+        HELLO NEW WORLD
         <slot>
             Submit <!-- fallback content -->
         </slot>
@@ -13,3 +14,8 @@ defineProps<{
 }>()
 
 </script>
+
+<!-- Needed for web component -->
+<style>
+@import url("../index.css");
+</style>

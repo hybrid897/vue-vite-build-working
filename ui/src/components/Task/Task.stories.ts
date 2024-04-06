@@ -1,5 +1,4 @@
 import Task from './Task.vue'
-import { action } from '@storybook/addon-actions'
 
 export default {
   component: Task,
@@ -12,11 +11,6 @@ export default {
   },
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/
-}
-
-export const actionsData = {
-  onPinTask: action('pin-task'),
-  onArchiveTask: action('archive-task')
 }
 
 export const Default = {

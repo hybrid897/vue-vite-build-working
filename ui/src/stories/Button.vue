@@ -1,48 +1,83 @@
 <template>
-  <button type="button" :class="classes" @click="onClick" :style="style">{{ label }} </button>
+  <div class="flex h-full max-h-11 justify-center gap-x-10">
+    <Popover
+      v-for="(button, index) in buttons"
+      :key="index"
+      :keyval="index"
+      :solutions="solutions"
+      :isActive="currentactive === index"
+      :msg="button.text"
+      @toggle-button="handleToggle"
+      @mouse-enter="mouseEnter"
+      @mouse-leave="mouseLeave"
+    >
+      <template v-slot:content="{ msg, item }">
+        <div
+          class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50"
+        >
+          <component
+            :is="item.icon"
+            class="h-6 w-6 text-gray-600 group-hover:text-indigo-600"
+            aria-hidden="true"
+          />
+        </div>
+        <div>
+          <a
+            :href="item.href"
+            class="font-semibold text-gray-900"
+          >
+            {{ msg }}
+            <span class="absolute inset-0" />
+          </a>
+          <p class="mt-1 text-gray-600">{{ item.description }}</p>
+        </div>
+      </template>
+    </Popover>
+  </div>
 </template>
 
-<script lang="ts" setup>
-import './button.css';
-import { computed } from 'vue';
+<script setup lang="ts">
+import Popover from '../components/MyButton.vue'
 
-const props = withDefaults(defineProps<{
+import { ref } from 'vue'
+
+const props = defineProps<{
+  buttons: any
   /**
-   * The label of the button
+   * Solution type
    */
-  label: string,
-  /**
-   * primary or secondary button
-   */
-  primary?: boolean,
-  /**
-   * size of the button
-   */
-  size?: 'small' | 'medium' | 'large',
-  /**
-   * background color of the button
-   */
-  backgroundColor?: string,
+  solutions: any
+}>()
 
-}>(), { primary: false });
+let currentactive = ref(-1)
+const activeTimeout = ref(null)
 
-const emit = defineEmits<{
-  (e: 'click', id: number): void;
-}>();
+function handleToggle(activeIndex) {
+  clearActiveTimeout()
+  if (currentactive.value === activeIndex) {
+    currentactive.value = -1
+  } else {
+    currentactive.value = activeIndex
+  }
+}
 
-const classes = computed(() => ({
-  'storybook-button': true,
-  'storybook-button--primary': props.primary,
-  'storybook-button--secondary': !props.primary,
-  [`storybook-button--${props.size || 'medium'}`]: true,
-}));
+function mouseEnter(activeIndex) {
+  clearActiveTimeout()
+  activeTimeout.value = setTimeout(() => {
+    currentactive.value = activeIndex
+  }, 300)
+}
 
-const style = computed(() => ({
-  backgroundColor: props.backgroundColor
-}));
+function mouseLeave() {
+  clearActiveTimeout()
+  activeTimeout.value = setTimeout(() => {
+    currentactive.value = -1
+  }, 300)
+}
 
-const onClick = () => {
-  emit("click", 1)
-};
-
+function clearActiveTimeout() {
+  clearTimeout(activeTimeout.value)
+}
 </script>
+
+<style scoped></style>

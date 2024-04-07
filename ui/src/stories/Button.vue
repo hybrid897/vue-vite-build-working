@@ -2,19 +2,20 @@
   <div class="flex h-full max-h-11 justify-center gap-x-10">
     <slot
       name="content"
-      :handleToggle="handleToggle"
-      :mouseEnter="mouseEnter"
-      :mouseLeave="mouseLeave"
       :currentActive="currentActive"
     ></slot>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, provide } from 'vue'
 
 let currentActive = ref(-1)
 const activeTimeout = ref<NodeJS.Timeout>()
+
+provide('handleToggle', handleToggle)
+provide('mouseEnter', mouseEnter)
+provide('mouseLeave', mouseLeave)
 
 function handleToggle(activeIndex: number) {
   clearActiveTimeout()

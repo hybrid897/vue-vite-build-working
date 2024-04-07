@@ -8,10 +8,7 @@
         text-white transition duration-0 hover:border-current focus:outline-none"
       @click="handleClick"
     >
-      <slot
-        name="button"
-        :isVisible="isVisible"
-      ></slot>
+      <slot name="button"></slot>
     </div>
     <div
       v-if="isVisible"
@@ -31,21 +28,19 @@
 
 <script setup lang="ts">
 import { useElementHover } from '@vueuse/core'
-import { watch, ref, computed } from 'vue'
+import { watch, ref, computed, inject } from 'vue'
+
+const handleToggle = inject('handleToggle') as (id: number) => void
+const mouseEnter = inject('mouseEnter') as (id: number) => void
+const mouseLeave = inject('mouseLeave') as () => void
 
 const props = defineProps<{
   isActive: boolean
   keyval: number
 }>()
 
-const emit = defineEmits<{
-  mouseEnter: [id: number]
-  mouseLeave: []
-  toggleButton: [id: number]
-}>()
-
 defineSlots<{
-  button(props: { isVisible: boolean }): any
+  button(props: {}): any
   hovercontent(props: {}): any
 }>()
 
@@ -53,7 +48,7 @@ const hoverZone = ref(null)
 const isHovered = useElementHover(hoverZone)
 
 watch(isHovered, (currentVal) => {
-  currentVal ? emit('mouseEnter', props.keyval) : emit('mouseLeave')
+  currentVal ? mouseEnter(props.keyval) : mouseLeave()
 })
 
 const isVisible = computed(() => {
@@ -61,6 +56,6 @@ const isVisible = computed(() => {
 })
 
 function handleClick() {
-  emit('toggleButton', props.keyval)
+  handleToggle(props.keyval)
 }
 </script>

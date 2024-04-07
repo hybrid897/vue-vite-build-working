@@ -13,14 +13,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps<{
-  buttons: any
-  /**
-   * Solution type
-   */
-  solutions: any
-}>()
-
 let currentActive = ref(-1)
 const activeTimeout = ref<NodeJS.Timeout>()
 

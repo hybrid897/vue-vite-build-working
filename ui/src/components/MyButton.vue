@@ -32,13 +32,10 @@
 <script setup lang="ts">
 import { useElementHover } from '@vueuse/core'
 import { watch, ref, computed } from 'vue'
-import type { Solution } from './MyButtonTypes'
 
 const props = defineProps<{
-  msg: string
   isActive: boolean
   keyval: number
-  solutions: any[]
 }>()
 
 const emit = defineEmits<{
@@ -55,17 +52,15 @@ defineSlots<{
 const hoverZone = ref(null)
 const isHovered = useElementHover(hoverZone)
 
-function handleClick() {
-  //contentOpen.value = !contentOpen.value;
-  emit('toggleButton', props.keyval)
-}
-
 watch(isHovered, (currentVal) => {
   currentVal ? emit('mouseEnter', props.keyval) : emit('mouseLeave')
 })
 
 const isVisible = computed(() => {
-  console.log(props.isActive, 'I am visible?')
   return props.isActive
 })
+
+function handleClick() {
+  emit('toggleButton', props.keyval)
+}
 </script>

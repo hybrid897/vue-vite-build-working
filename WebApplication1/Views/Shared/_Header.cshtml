@@ -4,27 +4,22 @@
 }
 
 <popover-container>
-    <template #content="{ currentActive }">
-        @foreach (var (value, index) in buttons.Select((v, i) => (v, i)))
-        {
-            <popover 
-                :keyval="@index"
-                :is-active="currentActive === @index">
+    @foreach (var (value, index) in buttons.Select((v, i) => (v, i)))
+    {
+        <popover :id="@index">
+            @* Menu button *@
+            <template #button>
+                <button>@value</button>
+            </template>
 
-                @* Menu button *@
-                <template #button>
-                    <button>@value</button>
-                </template>
+            @* Content displayed on hover *@
+            <template #hovercontent>
+                @foreach (var content in contents)
+                {
+                    <a href="#">@value @content</a>
 
-                @* Content displayed on hover *@
-                <template #hovercontent>
-                    @foreach (var content in contents)
-                    {
-                        <a href="#">@value @content</a>
-                    }
-                </template>
-            </popover>
-        }
-    </template>
+                }
+            </template>
+        </popover>
+    }
 </popover-container>
-

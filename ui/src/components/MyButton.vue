@@ -29,14 +29,15 @@
 <script setup lang="ts">
 import { useElementHover } from '@vueuse/core'
 import { watch, ref, computed, inject } from 'vue'
+import type { Ref } from 'vue'
 
 const handleToggle = inject('handleToggle') as (id: number) => void
 const mouseEnter = inject('mouseEnter') as (id: number) => void
 const mouseLeave = inject('mouseLeave') as () => void
+const activeId = inject('activeIndex') as Ref<number>
 
 const props = defineProps<{
-  isActive: boolean
-  keyval: number
+  id: number
 }>()
 
 defineSlots<{
@@ -48,14 +49,14 @@ const hoverZone = ref(null)
 const isHovered = useElementHover(hoverZone)
 
 watch(isHovered, (currentVal) => {
-  currentVal ? mouseEnter(props.keyval) : mouseLeave()
+  currentVal ? mouseEnter(props.id) : mouseLeave()
 })
 
 const isVisible = computed(() => {
-  return props.isActive
+  return activeId.value == props.id
 })
 
 function handleClick() {
-  handleToggle(props.keyval)
+  handleToggle(props.id)
 }
 </script>

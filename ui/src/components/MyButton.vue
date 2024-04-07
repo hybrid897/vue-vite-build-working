@@ -1,45 +1,28 @@
 <template>
   <div
-    className="flex"
     ref="hoverZone"
+    className="flex"
   >
     <div
       class="text-md m-2 flex cursor-pointer select-none content-center border-b-4 border-transparent font-medium
         text-white transition duration-0 hover:border-current focus:outline-none"
       @click="handleClick"
     >
-      <button>{{ msg }}</button>
-      <a
-        href="#"
-        class="content-center"
-      >
-        <ChevronDownIcon
-          class="h-6 w-6 cursor-pointer"
-          :class="{ 'scale-y-[-1]': isVisible }"
-        >
-        </ChevronDownIcon>
-      </a>
+      <slot
+        name="button"
+        :isVisible="isVisible"
+      ></slot>
     </div>
     <div
-      v-show="isVisible"
+      v-if="isVisible"
       className="absolute top-20 left-1/2 -translate-x-1/2"
     >
       <div
-        class="w-screen max-w-md flex-auto overflow-hidden bg-white text-sm leading-6 shadow-lg ring-1
+        class="min-h-[20vh] w-screen max-w-md flex-auto overflow-hidden bg-white text-sm leading-6 shadow-lg ring-1
           ring-gray-900/5 lg:max-w-3xl"
       >
         <div class="grid grid-cols-1 gap-x-6 gap-y-1 p-4 lg:grid-cols-2">
-          <div
-            v-for="item in solutions"
-            :key="item.name"
-            class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-50"
-          >
-            <slot
-              name="content"
-              :msg="msg"
-              :item="item"
-            ></slot>
-          </div>
+          <slot name="hovercontent"></slot>
         </div>
       </div>
     </div>
@@ -50,13 +33,12 @@
 import { useElementHover } from '@vueuse/core'
 import { watch, ref, computed } from 'vue'
 import type { Solution } from './MyButtonTypes'
-import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 const props = defineProps<{
   msg: string
   isActive: boolean
   keyval: number
-  solutions: Solution[]
+  solutions: any[]
 }>()
 
 const emit = defineEmits<{
@@ -66,7 +48,8 @@ const emit = defineEmits<{
 }>()
 
 defineSlots<{
-  content(props: { msg: string; item: Solution }): any
+  button(props: { isVisible: boolean }): any
+  hovercontent(props: {}): any
 }>()
 
 const hoverZone = ref(null)
@@ -82,6 +65,7 @@ watch(isHovered, (currentVal) => {
 })
 
 const isVisible = computed(() => {
+  console.log(props.isActive, 'I am visible?')
   return props.isActive
 })
 </script>

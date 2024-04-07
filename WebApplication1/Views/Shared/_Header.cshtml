@@ -1,0 +1,33 @@
+﻿@{
+    var buttons = new List<string>() { "Parks & recreation", "Nature", "Get involved", "Our work" };
+    var contents = new List<string>() { "Content1", "Content2", "Content3", "Content4", "Content5", "Content6", "Content7", "Content8" };
+}
+
+<popover-container>
+    <template #content="slotProps">
+        @foreach (var (value, index) in buttons.Select((v, i) => (v, i)))
+        {
+            <popover 
+                :keyval="@index"
+                :is-active="slotProps.currentActive === @index"
+                @@toggle-button="slotProps.handleToggle"
+                @@mouse-enter="slotProps.mouseEnter"
+                @@mouse-leave="slotProps.mouseLeave">
+
+                @* Menu button *@
+                <template #button>
+                    <button>@value</button>
+                </template>
+
+                @* Content displayed on hover *@
+                <template #hovercontent>
+                    @foreach (var content in contents)
+                    {
+                        <a href="#">@value @content</a>
+                    }
+                </template>
+            </popover>
+        }
+    </template>
+</popover-container>
+

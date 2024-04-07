@@ -54,6 +54,7 @@
     "prettier": "^3.2.5",
     "prettier-plugin-classnames": "^0.6.5",
     "prettier-plugin-merge": "^0.6.0",
+    "prettier-plugin-organize-attributes": "^1.0.0",
     "prettier-plugin-tailwindcss": "^0.5.13",
     "storybook": "^8.0.6",
     "tailwindcss": "^3.4.3",

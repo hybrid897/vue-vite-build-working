@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var buttons = new List<string>() { "Parks & recreation", "Nature", "Get involved", "Our work" };
+    var contents = new List<string>() { "Content1", "Content2", "Content3", "Content4", "Content5", "Content6", "Content7", "Content8" };
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -9,16 +14,13 @@
 <body>
 <div id="app">
    
-    <div class="container">
+    <div>
         <main role="main" class="pb-3">
-                <div v-if="true">
-                HELLO!
-            </div>
-            <my-button msg="test">OVERRIDE SLOT</my-button>
-            <hello-world msg="This is a vue component!">
-                <span> MY DUMB THING</span>
-            </hello-world>
-
+                <div class="flex flex-col min-h-[60vh]">
+                    <div class="flex min-h-[80px] items-center bg-lime-900 justify-center">
+                        @await Html.PartialAsync("_Header")
+                    </div>
+                </div>
             @RenderBody()
         </main>
     </div>
@@ -28,3 +30,6 @@
 </div>
 </body>
 </html>
+
+
+

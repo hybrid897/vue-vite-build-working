@@ -1,6 +1,6 @@
 <template>
   <input
-    :class="twMerge(textField({ intent, size, margin, fullWidth, hasError }))"
+    :class="twMerge(buttonClasses({ intent, size, margin, fullWidth, hasError }))"
     :type="type"
     :value="modelValue"
     @input="onInput"
@@ -15,7 +15,7 @@
 import { twMerge } from 'tailwind-merge'
 import { cva, type VariantProps } from 'class-variance-authority'
 
-const textField = cva(
+const buttonClasses = cva(
   'outline-0 pl-4 pr-11 text-base bg-color-surface-primary border-color-border-medium-emphasis focus:shadow-sm disabled:bg-color-surface-disabled disabled:text-color-text-disabled',
   {
     variants: {
@@ -55,26 +55,42 @@ const textField = cva(
   }
 )
 
-type TextFieldProps = VariantProps<typeof textField>
+type ButtonClassProps = VariantProps<typeof buttonClasses>
 
 interface Props {
   /**
    * Intent is an example class for my question.
    */
-  intent?: TextFieldProps['intent']
+  intent?: ButtonClassProps['intent']
 
   /**
    * size is an example class for my question.
    */
-  size?: TextFieldProps['size']
+  size?: ButtonClassProps['size']
 
   /**
    * margin is an example class for my question.
    */
-  margin?: TextFieldProps['margin']
-  hasError?: TextFieldProps['hasError']
-  fullWidth?: TextFieldProps['fullWidth']
+  margin?: ButtonClassProps['margin']
+
+  /**
+   * hasError is an example class for my question.
+   */
+  hasError?: ButtonClassProps['hasError']
+
+  /**
+   * fullWidth is an example class for my question.
+   */
+  fullWidth?: ButtonClassProps['fullWidth']
+
+  /**
+   * type is an example class for my question.
+   */
   type?: 'text' | 'email' | 'tel'
+
+  /**
+   * modelValue is an example class for my question.
+   */
   modelValue?: string
 }
 

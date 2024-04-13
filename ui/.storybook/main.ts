@@ -10,8 +10,10 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
   ],
   framework: {
-    name: '@storybook/vue3-vite',
-    options: {}
+    name: "@storybook/vue3-vite",
+    options: {
+      docgen: "vue-component-meta",
+    },
   },
   docs: {
     autodocs: 'tag'

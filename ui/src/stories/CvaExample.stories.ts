@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import CvaExample from './CvaExample.vue'
+import Button from './Button.vue'
 import type { ComponentProps } from 'vue-component-type-helpers';
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 
 type CvaButtonAndProps = ComponentProps<typeof CvaExample>;
 
 const meta = {
-  title: 'CvaButton',
+   title: 'CvaButton',
   parameters: { layout: 'centered' },
   component: CvaExample,
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
@@ -48,7 +49,7 @@ export const Primary: Story = {
     },
     // V-Bind necessary for args to bind to template correctly
     template: `
-      <cva-example
+      <CvaExample
         v-for="card in cards"
         >
         <template #center>
@@ -65,9 +66,15 @@ export const Primary: Story = {
             <button>{{ card.description }}</button>
           </a>
         </template>
-      </cva-example>
+      </CvaExample>
     `
   }),
+   decorators: [
+    (story) => ({
+      components: { story, Button },
+      template: '<Button><story /></Button>',
+    }),
+  ],
  }
 
 /*
@@ -124,11 +131,11 @@ export const Primary: Story = {
     // V-Bind necessary for args to bind to template correctly
     template: `
     <template v-for="card in cards">
-      <cva-example >
+      <CvaExample >
         <template v-slot:center> 
         {{ card.title}} SLOT
         </template>
-      </cva-example>
+      </CvaExample>
       </template>
     `,
   }),

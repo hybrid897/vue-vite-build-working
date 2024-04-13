@@ -9,8 +9,16 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i
       }
+    },
+    docs: {
+      source: {
+        transform: (code: string) => {
+          return code.replace(/^.*_.*$\n/gm, "")
+        }
+      }
     }
   }
+  
 }
 
 export default preview

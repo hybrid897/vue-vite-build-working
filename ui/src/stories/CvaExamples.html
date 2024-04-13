@@ -1,0 +1,19 @@
+<cva-example
+  v-for="card in cards"
+  v-bind="args"
+>
+  <template v-slot:center>
+    <span class="align-center mr-2">${args.center}</span>
+    <a
+      class="flex flex-col"
+      :href="card.image"
+    >
+      <img
+        :src="card.image"
+        alt="Card Image"
+      />
+      <button>{{ card.title }}</button>
+      <button>{{ card.description }}</button>
+    </a>
+  </template>
+</cva-example>

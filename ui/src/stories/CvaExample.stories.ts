@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import CvaExample from './CvaExample.vue'
 import type { ComponentProps } from 'vue-component-type-helpers';
-import { EnvelopeIcon, ChevronDoubleDownIcon } from '@heroicons/vue/20/solid'
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 
-type CvaButtonAndProps = ComponentProps<typeof CvaExample> & { center?: string } & {href?: string};
+type CvaButtonAndProps = ComponentProps<typeof CvaExample>;
 
 const meta = {
   title: 'CvaButton',
@@ -18,21 +17,6 @@ const meta = {
       options: ['primary', 'secondary'],
     },
   },
-  render: (args) => ({
-    components: { CvaExample },
-    setup() {
-      return { args };
-    },
-    // V-Bind necessary for args to bind to template correctly
-    template: `
-      <cva-example v-bind="args">
-        <template v-slot:center> ${args.center} </template>
-      </cva-example>
-    `,
-  }),
-  args: {
-    center: 'Primary'
-  }
 } satisfies Meta<CvaButtonAndProps>
 
 export default meta
@@ -52,10 +36,39 @@ export const Primary: Story = {
  * to learn how to use render functions.
  */
  export const UsingSlot: Story = {
-  args: {
-    center: '<a href="https://www.google.com">USING SLOT</a>', 
-  },
-}
+  render: (args) => ({
+    components: { CvaExample },
+    setup() {
+      const cards = [
+        { id: 111, title: 'Card 1', description: 'Description for card 1', image: 'https://via.placeholder.com/150' },
+        { id: 222, title: 'Card 2', description: 'Description for card 2', image: 'https://via.placeholder.com/150' },
+        { id: 333, title: 'Card 3', description: 'Description for card 3', image: 'https://via.placeholder.com/150' }
+      ]
+      return { args, cards };
+    },
+    // V-Bind necessary for args to bind to template correctly
+    template: `
+      <cva-example
+        v-for="card in cards"
+        >
+        <template #center>
+          <span class="align-center mr-2">{{card.id}} {{card.title}}</span>
+          <a
+            class="flex flex-col"
+            :href="card.image"
+          >
+            <img
+              :src="card.image"
+              alt="Card Image"
+            />
+            <button>{{ card.title }}</button>
+            <button>{{ card.description }}</button>
+          </a>
+        </template>
+      </cva-example>
+    `
+  }),
+ }
 
 /*
  *👇 Render functions are a framework specific feature to allow you control on how the component renders.
@@ -64,8 +77,7 @@ export const Primary: Story = {
  */
  export const Secondary: Story = {
   args: {
-    rightIcon: ChevronDoubleDownIcon,
-    center: 'Secondary',
+    center: 'SecondaryTest',
     intent: 'secondary'
   },
  }
@@ -79,8 +91,7 @@ export const Primary: Story = {
 
   args: {
     as: 'a',
-    leftIcon: EnvelopeIcon,
-    center: 'Secondary',
+    center: 'AsDangerLink',
     href: '#',
     intent: 'danger'
   },
@@ -98,3 +109,30 @@ export const Primary: Story = {
     disabled: true
   },
  }
+
+ export const ButtonGrid: Story = {
+  render: (args) => ({
+    components: { CvaExample },
+    setup() {
+      const cards = [
+        { id: 1, title: 'Card 1', description: 'Description for card 1', image: 'https://via.placeholder.com/150' },
+        { id: 2, title: 'Card 2', description: 'Description for card 2', image: 'https://via.placeholder.com/150' },
+        { id: 3, title: 'Card 3', description: 'Description for card 3', image: 'https://via.placeholder.com/150' }
+      ]
+      return { args, cards };
+    },
+    // V-Bind necessary for args to bind to template correctly
+    template: `
+    <template v-for="card in cards">
+      <cva-example >
+        <template v-slot:center> 
+        {{ card.title}} SLOT
+        </template>
+      </cva-example>
+      </template>
+    `,
+  }),
+  args: {
+    center: 'Button Grid Arg',
+  },
+ } 

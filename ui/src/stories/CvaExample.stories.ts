@@ -18,7 +18,21 @@ const meta = {
       options: ['primary', 'secondary'],
     },
   },
-
+  render: (args) => ({
+    components: { CvaExample },
+    setup() {
+      return { args };
+    },
+    // V-Bind necessary for args to bind to template correctly
+    template: `
+      <cva-example v-bind="args">
+        <template v-slot:center> ${args.center} </template>
+      </cva-example>
+    `,
+  }),
+  args: {
+    center: 'Primary'
+  }
 } satisfies Meta<CvaButtonAndProps>
 
 export default meta
@@ -38,18 +52,6 @@ export const Primary: Story = {
  * to learn how to use render functions.
  */
  export const UsingSlot: Story = {
-  // Can do this per story to fill the slot with something
-  render: (args) => ({
-    components: { CvaExample },
-    setup() {
-      return { args };
-    },
-    template: `
-      <cva-example v-bind="args">
-        <template v-slot:center> ${args.center} </template>
-      </cva-example>
-    `,
-  }),
   args: {
     center: '<a href="https://www.google.com">USING SLOT</a>', 
   },

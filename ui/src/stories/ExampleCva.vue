@@ -8,6 +8,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * Great documentation https://zenn.dev/shiori_hoshimi/articles/afad1f1e176a71
+ *
+ */
 import { twMerge } from 'tailwind-merge'
 import { cva, type VariantProps } from 'class-variance-authority'
 

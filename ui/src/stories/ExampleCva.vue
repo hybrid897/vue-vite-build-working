@@ -58,8 +58,19 @@ const textField = cva(
 type TextFieldProps = VariantProps<typeof textField>
 
 interface Props {
+  /**
+   * Intent is an example class for my question.
+   */
   intent?: TextFieldProps['intent']
+
+  /**
+   * size is an example class for my question.
+   */
   size?: TextFieldProps['size']
+
+  /**
+   * margin is an example class for my question.
+   */
   margin?: TextFieldProps['margin']
   hasError?: TextFieldProps['hasError']
   fullWidth?: TextFieldProps['fullWidth']

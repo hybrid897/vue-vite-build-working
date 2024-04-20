@@ -2,6 +2,7 @@ import App from '../app'
 
 import registerMyButton from './myButton'
 import registerMyTask from './Task/Task'
+import registerLayout from './PageLayout'
 
 /**
  * Initialise Components
@@ -11,4 +12,5 @@ import registerMyTask from './Task/Task'
 export async function initialiseComponents(app: typeof App) {
   registerMyButton(app)
   registerMyTask(app)
+  registerLayout(app)
 }

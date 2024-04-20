@@ -34,5 +34,12 @@
     "^v-html$",
     "^v-text$"
   ],
-  "singleAttributePerLine": true
+	"overrides": [
+		{
+			"files": ["**/*.vue"],
+			"options": {
+				"singleAttributePerLine": true
+			}
+		}
+	]
 }

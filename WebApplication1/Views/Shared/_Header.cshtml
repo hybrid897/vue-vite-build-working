@@ -6,7 +6,7 @@
 <popover-container>
     @foreach (var (value, index) in buttons.Select((v, i) => (v, i)))
     {
-        <popover :id="@index">
+        <my-popover :id="@index">
             @* Menu button *@
             <template #button>
                 <button>@value</button>
@@ -20,6 +20,6 @@
 
                 }
             </template>
-        </popover>
+        </my-popover>
     }
 </popover-container>

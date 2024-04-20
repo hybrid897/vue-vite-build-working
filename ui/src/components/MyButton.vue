@@ -32,6 +32,18 @@ import { watch, ref, computed, inject } from 'vue'
 
 const { activeId, mouseEnter, mouseLeave, handleToggle } = inject('toggleTimeout') as any
 
+var buttons = ['Parks & recreation', 'Nature', 'Get involved', 'Our work', 'MyDemo']
+var contents = [
+  'Content1',
+  'Content2',
+  'Content3',
+  'Content4',
+  'Content5',
+  'Content6',
+  'Content7',
+  'Content8'
+]
+
 const props = defineProps<{
   id: number
 }>()

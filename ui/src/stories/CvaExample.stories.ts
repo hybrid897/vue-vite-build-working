@@ -167,3 +167,48 @@ export const ButtonGrid: Story = {
     center: 'Button Grid Arg'
   }
 }
+
+/*
+ *👇 Test reuse render function
+ */
+export const DisabledRenderReuse: Story = {
+  args: {
+    ...Disabled.args
+  },
+  render: (args) => {
+    return {
+      components: { CvaExample },
+      setup() {
+        const cards = [
+          {
+            id: 1,
+            title: 'Card 1',
+            description: 'Description for card 1',
+            image: 'https://via.placeholder.com/150'
+          },
+          {
+            id: 2,
+            title: 'Card 2',
+            description: 'Description for card 2',
+            image: 'https://via.placeholder.com/150'
+          },
+          {
+            id: 3,
+            title: 'Card 3',
+            description: 'Description for card 3',
+            image: 'https://via.placeholder.com/150'
+          }
+        ]
+        return { args, cards }
+      },
+      // V-Bind necessary for args to bind to template correctly
+      template: html`
+        <template v-for="card in cards">
+          <cva-example v-bind="args">
+            <template v-slot:center> {{ card.title }} SLOT </template>
+          </cva-example>
+        </template>
+      `
+    }
+  }
+}

@@ -1,19 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import Button from './Button.vue'
-import {
-  ArrowPathIcon,
-  ChartPieIcon,
-  CursorArrowRaysIcon,
-  DocumentChartBarIcon,
-  FingerPrintIcon,
-  SquaresPlusIcon
-} from '@heroicons/vue/24/outline'
+import PopOverContainer from './Button.vue'
+import PopoverContent from '../components/MyButton.vue'
+const html = String.raw
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories
 const meta = {
   title: 'Example/HeaderDoc',
   parameters: { layout: 'fullscreen' },
-  component: Button,
+  component: PopOverContainer,
   decorators: [
     () => ({
       template:
@@ -22,7 +16,7 @@ const meta = {
   ],
   // This component will have an automatically generated docsPage entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ['autodocs']
-} satisfies Meta<typeof Button>
+} satisfies Meta<typeof PopOverContainer>
 
 export default meta
 type Story = StoryObj<typeof meta>
@@ -33,5 +27,43 @@ type Story = StoryObj<typeof meta>
  * to learn how to use render functions.
  */
 export const Primary: Story = {
-  args: {  }
+  args: {},
+  render: (args) => ({
+    components: { PopOverContainer, PopoverContent },
+    setup() {
+      var buttons = ['Parks & recreation', 'Nature', 'Get involved', 'Our work', 'MyDemo']
+      var contents = [
+        'Content1',
+        'Content2',
+        'Content3',
+        'Content4',
+        'Content5',
+        'Content6',
+        'Content7',
+        'Content8'
+      ]
+      return { args, buttons, contents }
+    },
+    // V-Bind necessary for args to bind to template correctly
+    template: html`
+      <PopOverContainer>
+        <PopoverContent
+          v-for="(item, index) in buttons"
+          :id="index"
+        >
+          <template #button>
+            <button>{{ item }}</button>
+          </template>
+
+          <template #hovercontent>
+            <a
+              v-for="content in contents"
+              href="#"
+              >{{ item }} {{ content }}</a
+            >
+          </template>
+        </PopoverContent>
+      </PopOverContainer>
+    `
+  })
 }

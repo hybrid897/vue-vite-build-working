@@ -67,14 +67,8 @@ export const UsingSlot: Story = {
       <cva-example v-for="card in cards">
         <template #center>
           <span class="align-center mr-2">{{card.id}} {{card.title}}</span>
-          <a
-            class="flex flex-col"
-            :href="card.image"
-          >
-            <img
-              :src="card.image"
-              alt="Card Image"
-            />
+          <a class="flex flex-col" :href="card.image">
+            <img :src="card.image" alt="Card Image" />
             <button>{{ card.title }}</button>
             <button>{{ card.description }}</button>
           </a>
@@ -111,7 +105,6 @@ export const AsLink: Story = {
   args: {
     as: 'a',
     center: 'AsDangerLink',
-    href: '#',
     intent: 'danger'
   }
 }

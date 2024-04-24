@@ -8,30 +8,30 @@ In this approach, the `Navbar.vue` component will render the navigation items di
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useBreakpoint } from '@vueuse/core';
-import MobileMenu from './MobileMenu.vue';
+import { ref } from 'vue'
+import { useBreakpoint } from '@vueuse/core'
+import MobileMenu from './MobileMenu.vue'
 
-const isMobile = useBreakpoint('sm');
-const mobileMenuOpen = ref(false);
+const isMobile = useBreakpoint('sm')
+const mobileMenuOpen = ref(false)
 
 function toggleMobileMenu() {
-  mobileMenuOpen.value = !mobileMenuOpen.value;
+  mobileMenuOpen.value = !mobileMenuOpen.value
 }
 </script>
 
 <template>
-  <nav class="bg-gray-800 text-white p-4">
+  <nav class="bg-gray-800 p-4 text-white">
     <div class="container mx-auto flex items-center justify-between">
       <h1 class="text-lg">Navbar</h1>
-      <button @click="toggleMobileMenu" v-if="isMobile" class="md:hidden">
-        Menu
-      </button>
+      <button v-if="isMobile" class="md:hidden" @click="toggleMobileMenu">Menu</button>
       <ul v-if="!isMobile" class="hidden md:flex">
-        <slot></slot> <!-- Shared slot for both desktop and mobile -->
+        <slot></slot>
+        <!-- Shared slot for both desktop and mobile -->
       </ul>
       <MobileMenu v-if="isMobile && mobileMenuOpen">
-        <slot></slot> <!-- Reuse the same slot for mobile layout -->
+        <slot></slot>
+        <!-- Reuse the same slot for mobile layout -->
       </MobileMenu>
     </div>
   </nav>
@@ -44,12 +44,12 @@ To handle conditional rendering within the `MobileMenu` component, you can modif
 
 ```vue
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref } from 'vue'
 
-const openItem = ref(null);
+const openItem = ref(null)
 
 function toggleItem(label) {
-  openItem.value = openItem.value === label ? null : label;
+  openItem.value = openItem.value === label ? null : label
 }
 </script>
 
@@ -83,8 +83,8 @@ With this setup, you define the nav items in one place, and they adapt to both m
 </template>
 
 <script setup>
-import Navbar from './Navbar.vue';
-import NavItem from './NavItem.vue';
+import Navbar from './Navbar.vue'
+import NavItem from './NavItem.vue'
 </script>
 ```
 

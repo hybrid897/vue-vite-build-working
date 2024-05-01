@@ -46,21 +46,14 @@ export const Primary: Story = {
     },
     // V-Bind necessary for args to bind to template correctly
     template: html`
-      <PopOverContainer>
-        <PopoverContent
-          v-for="(item, index) in buttons"
-          :id="index"
-        >
+      <PopOverContainer v-slot="{ height }">
+        <PopoverContent v-for="(item, index) in buttons" :id="index" :height>
           <template #button>
             <button>{{ item }}</button>
           </template>
 
           <template #hovercontent>
-            <a
-              v-for="content in contents"
-              href="#"
-              >{{ item }} {{ content }}</a
-            >
+            <a v-for="content in contents" href="#">{{ item }} {{ content }}</a>
           </template>
         </PopoverContent>
       </PopOverContainer>

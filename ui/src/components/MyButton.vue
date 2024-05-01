@@ -12,7 +12,8 @@
     </div>
     <div
       v-if="isVisible"
-      class="absolute left-1/2 top-20 -translate-x-1/2"
+      class="absolute left-1/2 -translate-x-1/2"
+      :style="{ top: height + 18 + 'px' }"
     >
       <div
         class="min-h-[20vh] w-screen max-w-md flex-auto overflow-hidden bg-blue-400 text-sm leading-6 shadow-lg
@@ -32,20 +33,9 @@ import { watch, ref, computed, inject } from 'vue'
 
 const { activeId, mouseEnter, mouseLeave, handleToggle } = inject('toggleTimeout') as any
 
-var buttons = ['Parks & recreation', 'Nature', 'Get involved', 'Our work', 'MyDemo']
-var contents = [
-  'Content1',
-  'Content2',
-  'Content3',
-  'Content4',
-  'Content5',
-  'Content6',
-  'Content7',
-  'Content8'
-]
-
 const props = defineProps<{
   id: number
+  height: number
 }>()
 
 defineSlots<{

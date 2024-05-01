@@ -47,7 +47,7 @@ export const Primary: Story = {
     // V-Bind necessary for args to bind to template correctly
     template: html`
       <PopOverContainer v-slot="{ height }">
-        <PopoverContent v-for="(item, index) in buttons" :id="index" :height>
+        <PopoverContent v-for="item in buttons" :height>
           <template #button>
             <button>{{ item }}</button>
           </template>

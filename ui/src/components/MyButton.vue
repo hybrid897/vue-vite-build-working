@@ -6,7 +6,7 @@
     <div
       class="text-md m-2 flex cursor-pointer select-none content-center border-b-4 border-transparent font-medium
         text-white transition duration-0 hover:border-current focus:outline-none"
-      @click="handleToggle(props.id)"
+      @click="handleToggle(id)"
     >
       <slot name="button"></slot>
     </div>
@@ -28,13 +28,15 @@
 </template>
 
 <script setup lang="ts">
+import { nanoid } from 'nanoid'
 import { useElementHover } from '@vueuse/core'
 import { watch, ref, computed, inject } from 'vue'
 
 const { activeId, mouseEnter, mouseLeave, handleToggle } = inject('toggleTimeout') as any
 
+let id = ref(nanoid())
+
 const props = defineProps<{
-  id: number
   height: number
 }>()
 
@@ -47,10 +49,10 @@ const hoverZone = ref(null)
 const isHovered = useElementHover(hoverZone)
 
 watch(isHovered, (currentVal) => {
-  currentVal ? mouseEnter(props.id) : mouseLeave()
+  currentVal ? mouseEnter(id.value) : mouseLeave()
 })
 
 const isVisible = computed(() => {
-  return activeId.value == props.id
+  return activeId.value == id.value
 })
 </script>
